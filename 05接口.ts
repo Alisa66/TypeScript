@@ -5,8 +5,6 @@
 
 //      可选属性:?
 //      只读属性：readonly
-
-
 interface IPerson {
     id: number
     name: string
@@ -30,13 +28,19 @@ const p1: IPerson = {
 
 // ------------函数类型
 
-// 可以描述函数的参数类型和返回类型 每个参数和函数都需要类型
+// 为了使用接口表示的函数类型，我们需要给接口定义一个调用签名
+// 它就像是一个只有参数列表和返回值类型的函数定义。参数列表里的每个参数都需要名字和类型
 
+// 可以描述函数的参数类型和返回类型 每个参数和函数都需要类型
+// 函数类型：通过接口的方式作为函数的类型来使用
 interface SearchFunc {
+    // 定义一个调用签名
     (source: string, substring1: string): boolean
 }
 
+// 定义了一个函数， 该类型就是上面定义的接口
 const mySearch: SearchFunc = function (source: string, sub: string): boolean {
+//    在sourch字符串中查找sub字符串
     return source.search(sub) > -1
 }
 console.log(mySearch('abcd', 'bc'));
@@ -61,8 +65,9 @@ interface Light{
 
 }
 
-class Car implements Alarm{
-    alert() {
+
+class Car implements Alarm{ //这个类的类型就是上面定义的接口 实际上也可以理解为 Alarm约束了当前的这个person类
+    alert() { // implements --- 实现接口中的方法
         console.log('car implements alert');
     }
 }
@@ -81,6 +86,9 @@ class Car1 implements Alarm,Light{
     }
 }
 
+// 总结： 类可以实现通过接口的方式 来定义当前这个类的类型
+// 类可以实现一个接口 类也可以实现多个接口 需要注意的时候 接口中的内容都要真正的实现
+
 //---接口继承接口
 
 interface lightTableAlarm extends Alarm,Light{
@@ -88,3 +96,10 @@ interface lightTableAlarm extends Alarm,Light{
 }
 
 
+
+
+// 总结： 接口与接口之间叫继承 extends
+//       类和接口之间叫实现 implements
+        
+        
+      

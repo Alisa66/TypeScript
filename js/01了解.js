@@ -3,6 +3,7 @@
         console.log(str);
     }
     let str = "hello TypeScript, this is xingqisan";
+    // let str = [1,2,3]
     sayHi(str);
 })();
 // ts里面写的是js代码 在html中能直接引入 

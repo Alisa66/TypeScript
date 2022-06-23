@@ -4,25 +4,37 @@ class Greeter {
     //声明属性
     message: string
 
-    // 构造方法
+    // 构造方法: 为了将来实例化的对象的时候， 可以直接对属性的值进行初始化
     constructor(message: string) {
-        this.message = message
+        this.message = message // 更新对象中的属性数据
     }
 
-    // 一般方法
+    // 一般方法 实例方法
     greet(): string {
         return 'hello' + this.message
     }
 }
 
-// 创建类的实例
+// 创建类的实例 可以直接进行初始化操作
 const greeter = new Greeter('world typescript')
+
+greeter.message = 'test'
 
 // 调用实例的方法
 console.log(greeter.greet());
 
 
 // -----类的继承
+// 继承后类与类之间的叫法
+
+// A类继承了B这个类， 那么此时A类叫字类 B叫基类
+// 字类---派生类
+// 基类-- 超类 （父类）
+
+// 一旦发生了继承的关系 就出现了父子类的叫法
+
+
+
 
 class Animal {
     run(distance: number) {
@@ -40,8 +52,18 @@ const dog = new Dog();
 dog.cry()
 dog.run(100)
 
+console.log("=======================");
 
-// ----类的继承 复杂一点都
+
+
+// 总结： 类和类之间如果要有继承关系 需要使用extends关键字
+
+// 子类可以调用父类中的构造函数， 使用的是super关键字 包括调用父类中的实例方法，也可以使用super
+
+// 子类中可以重写父类的方法
+
+
+// ----类的继承 复杂一点的
 class Animal1 {
     name: string
     constructor(name: string) {
@@ -54,7 +76,7 @@ class Animal1 {
 
 class Snake extends Animal1 {
     constructor(name: string) {
-        super(name) // 调用父类构造方法
+        super(name) // 调用父类中的构造方法
     }
     // 重写父类型的方法
     run(distance: number = 5) {
@@ -86,8 +108,10 @@ const horese = new Horse('hores1')
 horese.run() // hores1 run 100
 
 
+console.log("======================")
+// 父类型引用指向子类型的实例
+// 不同类型的对象针对相同的方法 产生了不同的行为 ===> 多态
 
-// 父类型引用指向子类型的实例===》 多态
 
 const tom: Animal1 = new Horse('ho2222')
 tom.run()
@@ -103,9 +127,9 @@ tom1.run()
 
 // ----访问修饰符  用来描述类内部的属性/方法 是否可以访问
 // public 默认为公认的  公开的外部也可以访问
-// private  只能类内部可以访问
+// private  只能类内部可以访问---- 子类中也是无法访问该成员数据
 
-// protected 类内部和自雷访问
+// protected 类中的成员如果使用protected， 外部无法访问这个成员数据的，当然子类是可以访问该成员
 
 class Animal2 {
     public name: string
@@ -146,8 +170,21 @@ console.log(new Person1('abc').name);
 
 // ----参数属性
 // 将声明和赋值合并至一处
+//  构造函数中能够对只读属性进行修改
+
 class Person2 {
-    constructor(readonly name: string) { }
+    // 该name参数可以叫参数属性
+
+    // 构造函数中的name参数 一旦使用了readonly进行修饰后 那么person2中就有了一个name的属性成员
+    // 构造函数中的name参数 一旦使用了readonly进行修饰后 外部也无法修改类中的name属性成员值的
+
+
+    // 构造函数中的name参数 一旦使用了public进行修饰后 那么Person类中就有了一个公共的name属性成员了
+
+    constructor(readonly name: string) {
+        // constructor(public name: string) {
+        this.name = name
+    }
 }
 
 const p = new Person2('Ben')
@@ -192,21 +229,28 @@ console.log(person.firstName, person.lastName);
 
 
 
-// // ----抽象类
+// // ----抽象类(抽象方法一般没有任何的具体内容的实现)
+// 为了子类进行实例化以及实现内部的抽象方法
 //     不能创建实例对象 只有实现类才能创建实例
 //     可以包含未实现的抽象方法
 
+// 抽象类的作用是 为子类服务的
+
 abstract class Animals {
+    // 抽象类
+    // abstract name:string
+    // 抽象方法 ---不能有具体的实现
     abstract cry()
+    // 实例方法
     run() {
         console.log('run()');
     }
 }
-
+// 定义一个子类 派生类
 class Dogs extends Animals {
+    // 重新实现抽象类中的方法，此时这个方法就是当前Dog类的实例方法
     cry() {
         console.log('Dogs cry()');
-
     }
 }
 

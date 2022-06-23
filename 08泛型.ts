@@ -1,7 +1,8 @@
-// 1. 根据指定的数量count和数据value 创建一个包含count个value的数组
+// 1. 根据指定的数量count和数据value 
+// 创建一个包含count个value的数组
 
 function creatArray(count: number, value: any): any[] {
-    let result: any[] = [];
+    let result: number[] = [];
     for (let i = 0; i < count; i++) {
         result.push(value)
     }
@@ -63,7 +64,6 @@ class User {
 class userCurd implements Ibase<User>{ // 类实现接口
     data: User[] = []
     add(user: User): void {
-
         user = { ...user, id: Date.now() }
         this.data.push(user)
 

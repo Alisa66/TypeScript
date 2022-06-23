@@ -43,7 +43,6 @@ console.log(buildName('c', 'd'));
 
 
 // 剩余参数 必须是数组类型
-
 function info(x: string, ...args: string[]) {
     console.log(x, args);
 }
@@ -73,6 +72,18 @@ function addN(x: string | number, y: string | number): string | number {
 
 console.log(addN(1, 2));
 console.log(addN('3', '4'));
+// 传入的是非法的数据 ts给我错误的信息内容报红色错误
+// 用了重载函数声明
+// console.log(addN('3',5));
+// console.log(addN(10,'test'));
+// 没有与此调用匹配的重载。
+//   第 1 个重载(共 2 个)，“(x: string, y: string): string”，出现以下错误。
+//     类型“number”的参数不能赋给类型“string”的参数。
+//   第 2 个重载(共 2 个)，“(x: number, y: number): number”，出现以下错误。
+//     类型“string”的参数不能赋给类型“number”的参数。ts(2769)
+
+
+
 
 
 
